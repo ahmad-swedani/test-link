@@ -32,17 +32,9 @@
             window.location.href = dynamicLink;
         };
 
-        // Create a button or link element to trigger the redirection
-        const redirectButton = document.createElement('a');
-        redirectButton.textContent = 'Click here to open the app';
-        redirectButton.href = '#'; // Set to '#' to avoid unwanted navigation
-        redirectButton.addEventListener('click', (event) => {
-            event.preventDefault(); // Prevent the default link behavior
-            redirectToApp(); // Redirect to the dynamic link
-        });
+        // Auto-redirect when the page loads
+        window.addEventListener('load', redirectToApp);
 
-        // Append the button/link to the body
-        document.body.appendChild(redirectButton);
     </script>
 
 </body>
