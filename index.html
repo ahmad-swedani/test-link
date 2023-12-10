@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dynamic App Redirection</title>
+</head>
+
+<body>
+
+    <script>
+        // Function to get URL parameter value by name
+        const getUrlParameter = (name) => {
+            name = name.replace(/[\[\]]/g, "\\$&");
+            const regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)");
+            const results = regex.exec(window.location.href);
+            if (!results) return null;
+            if (!results[2]) return '';
+            return decodeURIComponent(results[2].replace(/\+/g, ' '));
+        };
+
+        // Get the appLink parameter value from the URL
+        const appLinkParam = getUrlParameter('appLink');
+
+        // Set the fallback URL
+        const fallbackURL = 'https://your-website.com/redirect-page'; // Replace with your fallback URL
+
+        // Function to handle redirection
+        const redirectToApp = () => {
+            const dynamicLink = appLinkParam || fallbackURL;
+            window.location.href = dynamicLink;
+        };
+
+        // Create a button or link element to trigger the redirection
+        const redirectButton = document.createElement('a');
+        redirectButton.textContent = 'Click here to open the app';
+        redirectButton.href = '#'; // Set to '#' to avoid unwanted navigation
+        redirectButton.addEventListener('click', (event) => {
+            event.preventDefault(); // Prevent the default link behavior
+            redirectToApp(); // Redirect to the dynamic link
+        });
+
+        // Append the button/link to the body
+        document.body.appendChild(redirectButton);
+    </script>
+
+</body>
+
+</html>
